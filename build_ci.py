@@ -2,7 +2,7 @@ from conan.packager import ConanMultiPackager
 
 
 if __name__ == "__main__":
-    builder = ConanMultiPackager(username="memsharded", channel="testing")
+    builder = ConanMultiPackager(username="sunside", channel="testing")
     builder.add_common_builds(shared_option_name="Protobuf:shared")
     filtered_builds = []
     for settings, options in builder.builds:
