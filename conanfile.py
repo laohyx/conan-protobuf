@@ -87,11 +87,15 @@ class ProtobufConan(ConanFile):
                 self.copy("protoc", "bin", "protobuf-3.1.0/src/", keep_path=False)
 
     def package_info(self):
+        basename = "libprotobuf"
+        if self.settings.build_type == "Debug":
+            basename = "libprotobufd"
+
         if self.settings.os == "Windows":
-            self.cpp_info.libs = ["libprotobuf"]
+            self.cpp_info.libs = [basename]
             if self.options.shared:
                 self.cpp_info.defines = ["PROTOBUF_USE_DLLS"]
         elif self.settings.os == "Macos":
-            self.cpp_info.libs = ["libprotobuf.a"] if not self.options.shared else ["libprotobuf.9.dylib"]
+            self.cpp_info.libs = [basename + ".a"] if not self.options.shared else [basename + ".9.dylib"]
         else:
-            self.cpp_info.libs = ["libprotobuf.a"] if not self.options.shared else ["libprotobuf.so.9"]
+            self.cpp_info.libs = [basename + ".a"] if not self.options.shared else [basename + ".so.9"]
