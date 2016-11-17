@@ -10,7 +10,7 @@ class ProtobufConan(ConanFile):
     license = "https://github.com/google/protobuf/blob/v3.1.0/LICENSE"
     requires = "zlib/1.2.8@lasote/stable"
     settings = "os", "compiler", "build_type", "arch"
-    exports = "CMakeLists.txt", "lib*.cmake", "extract_includes.bat.in", "protoc.cmake", "tests.cmake", "change_dylib_names.sh"
+    exports = "CMakeLists.txt", "lib*.cmake", "extract_includes.bat.in", "protoc.cmake", "tests.cmake", "change_dylib_names.sh", "protobuf-cpp-3.1.0.zip"
     options = {"shared": [True, False]}
     default_options = "shared=True"
     generators = "cmake"
@@ -19,11 +19,8 @@ class ProtobufConan(ConanFile):
         self.options["zlib"].shared = self.options.shared
 
     def source(self):
-        tools.download("https://github.com/google/protobuf/"
-                       "releases/download/v3.1.0/protobuf-cpp-3.1.0.zip",
-                       "protobuf.zip")
-        tools.unzip("protobuf.zip")
-        os.unlink("protobuf.zip")
+        tools.unzip("protobuf-cpp-3.1.0.zip")
+        os.unlink("protobuf-cpp-3.1.0.zip")
 
     def build(self):
         if self.settings.os == "Windows":
